@@ -70,11 +70,10 @@
                 ])
                 .interpolate(d3.interpolateHcl);
 
-            const colors4 = d3.scalePow()
+            const colors4 = d3.scaleLinear()
                 .domain(d3.range(min,max,
-                    parseInt((Math.abs(max-min))/5.5)))
+                    parseInt((Math.abs(max-min))/4)))
                 .range([
-                    "#ffffff",
                     "#242b5b",
                     "#3e5eba",
                     "#abdda4",
@@ -102,7 +101,7 @@
             // Step 3 contour generator
             let contours = d3.contours()
                 .size([m, n])
-                .thresholds(d3.range(min,max,100)) // min, max, threshold: 100 or 400?
+                .thresholds(d3.range(min,max,300)) // min, max, threshold
                 (values_T);
 
             // Step 3 append contour to path (d)
@@ -117,7 +116,7 @@
                 .attr("stroke-linejoin", "round")
                 .attr("fill",
                     function (d) {
-                        if (d.value < 400){return "#ffffff"}
+                        if (d.value < 200){return "#ffffff"}
                         return colors(d.value)
                     })
         })
